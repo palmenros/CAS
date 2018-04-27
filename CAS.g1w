@@ -13,3 +13,8 @@ LoadAddress=80000000:90100000
 
 [Files]
 SourceFile=:CAS.cpp
+SourceFile=:String.cpp
+SourceFile=:Memory.cpp
+HeaderFile=:Vector.h
+HeaderFile=:String.h
+HeaderFile=:Memory.h

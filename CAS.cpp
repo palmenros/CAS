@@ -8,10 +8,14 @@
 /*                                                               */
 /*****************************************************************/
 
+#include "String.h"
+
 //Export everything to C linkage. Keep C++ headers above the export in order to be able to benefit from C++ features
 extern "C" {
 
 #include "fxlib.h"
+#include "syscall.h"
+#include "string.h"
 
 //****************************************************************************
 //  AddIn_main (Sample program main function)
@@ -33,7 +37,9 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
   locate(1, 4);
   Print((unsigned char *) "This application is");
   locate(1, 5);
-  Print((unsigned char *) " sample Add-In.");
+
+  String a = "Que", b = "tal";
+  Print((const unsigned char *) ('d' + a + " bitches, " + b).getString());
 
   while (1) {
 	GetKey(&key);
