@@ -6,7 +6,7 @@
 template <class T>
 void print(const T& t)
 {
-	std::cout << t << " ";
+	std::cout << t << std::endl;
 }
 
 void print(const String& str)
@@ -24,10 +24,42 @@ void print(const Vector<T>& v)
 	std::cout << std::endl;
 }
 
+class Test {
+public:
+	Test()
+	{
+		print("Hola");
+	}
+
+	Test& operator=(const Test& other)
+	{
+		print("Copiado");
+		return *this;
+	}
+
+	~Test()
+	{
+		print("Adios");
+	}
+};
+
+template <class T>
+void destroy(T t)
+{
+	t.~T();
+}
+
 int main()
 {
-	String a = "Hola", b = "mundo";
-	print(a + ' ' + b);
+	Vector<String> a;
+	{
+		String str[] = {"Uno", "Dos", "Tres"};
+		Vector<String> b(str);
+		a = b;
+	}
+
+	print(a);
+
 
 	return 0;
 }

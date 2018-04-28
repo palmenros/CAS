@@ -32,7 +32,11 @@ public:
 		count = N;
 		capacity = N;
 		data = (T*) malloc(sizeof(T) * capacity);
-		Memory::memcpy(data, arr, sizeof(T) * N);
+
+		for(size_t i = 0; i < count; i++)
+		{
+			data[i] = arr[i];
+		}
 	}
 
 	Vector(const Vector<T>& other)
@@ -40,7 +44,11 @@ public:
 		count = other.count;
 		capacity = other.capacity;
 		data = (T*) malloc(sizeof(T) * capacity);
-		Memory::memcpy(data, other.data, sizeof(T) * count);
+
+		for(size_t i = 0; i < count; i++)
+		{
+			data[i] = other[i];
+		}
 	}
 
 	Vector& operator=(const Vector<T>& other)
@@ -48,12 +56,23 @@ public:
 		data = (T*) realloc(data, sizeof(T) * other.capacity);
 		capacity = other.capacity;
 		count = other.count;
-		Memory::memcpy(data, other.data, sizeof(T) * count);
+
+		for(size_t i = 0; i < count; i++)
+		{
+			data[i] = other[i];
+		}
+
 		return *this;
 	}
 
 	~Vector()
 	{
+		//Destroy all objects
+		for(size_t i = 0; i < count; i++)
+		{
+			data[i].~T();
+		}
+
 		free(data);
 	}
 
