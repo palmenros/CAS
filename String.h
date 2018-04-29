@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include "Algorithm.h"
 
 class String
 {
@@ -20,6 +21,8 @@ public:
 	String();
 	String(const char* str);
 
+	//Construct string from a char. Repeat it n times
+	explicit String(char c, size_t n = 1);
 
 	String(const String& other);
 	String& operator=(const String& other);
@@ -56,3 +59,22 @@ private:
 	static size_t strlen(const char* str);
 
 };
+
+//Provide hash function
+namespace Algorithm
+{
+	template<>
+	struct hash<String>
+	{
+		/*djb2 hash function by Dan Bernstein*/
+		size_t operator()(const String& s)
+		{
+			size_t hash = 5381;
+			for(int i = 0; i < s.getLength(); i++)
+			{
+				hash = ((hash << 5) + hash) + s[i]; /* hash * 33 + c */
+			}
+			return hash;
+		}
+	};
+}

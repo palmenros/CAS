@@ -3,27 +3,7 @@
 #include <stdlib.h>
 #include "Memory.h"
 
-namespace Sort {
-// Callable objects to help sorting
-template <class _Tp>
-struct less
-{
-	bool operator()(const _Tp& a, const _Tp& b)
-	{
-		return a <= b;
-	}
-};
-
-template <class _Tp>
-struct greater
-{
-	bool operator()(const _Tp& a, const _Tp& b)
-	{
-		return a > b;
-	}
-};
-
-}
+#include "Algorithm.h"
 
 template <class T>
 class Vector
@@ -151,7 +131,7 @@ public:
 
 	void sort()
 	{
-		mergeSort(0, count - 1, Sort::less<T>());
+		mergeSort(0, count - 1, Algorithm::less<T>());
 	}
 
 protected:

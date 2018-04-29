@@ -19,7 +19,18 @@ String::String(const char * str)
 	capacity = length + 1;
 	count = capacity;
 	data = (char*) malloc(sizeof(char) * capacity);
-	Memory::memcpy(data, str, length + sizeof(char));
+	Memory::memcpy(data, str, sizeof(char) * (length + 1));
+}
+
+String::String(char c, size_t n)
+{
+	count = n + 1;
+	capacity = count;
+	data = (char*) malloc(sizeof(char) * capacity);
+	for(size_t i = 0; i < n; i++) {
+		data[i] = c;
+	}
+	data[n] = '\0';
 }
 
 String::String(const String& other)
@@ -212,3 +223,4 @@ bool String::operator!=(const String &other) const
 {
 	return !(*this == other);
 }
+
