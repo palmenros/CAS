@@ -2,6 +2,7 @@
 
 #include "../Vector.h"
 #include "../String.h"
+#include "../Expression.h"
 
 template <class T>
 void print(const T& t)
@@ -9,9 +10,10 @@ void print(const T& t)
 	std::cout << t << std::endl;
 }
 
-void print(const String& str)
+std::ostream& operator<<(std::ostream& os, const String& str)
 {
-	print(str.getString());
+	os << str.getString();
+	return os;
 }
 
 template <class T>
@@ -19,7 +21,7 @@ void print(const Vector<T>& v)
 {
 	for(int i = 0; i < v.getSize(); i++)
 	{
-		print(v[i]);
+		std::cout << v[i] << " ";
 	}
 	std::cout << std::endl;
 }
@@ -49,16 +51,29 @@ void destroy(T t)
 	t.~T();
 }
 
+
 int main()
 {
-	Vector<String> a;
-	{
-		String str[] = {"Uno", "Dos", "Tres"};
-		Vector<String> b(str);
-		a = b;
-	}
+	// 1 + 3x
+	Expression a[] = { Expression("1", ExpressionType::Literal), Expression("3x", ExpressionType::Literal)};
+	Expression sum = Expression("+", ExpressionType::Operator, Vector<Expression>(a));
 
-	print(a);
+	// 2x * 3
+	Expression b[] = {Expression("2x", ExpressionType::Literal), Expression("3", ExpressionType::Literal), sum};
+	Expression m = Expression("*", ExpressionType::Operator, Vector<Expression>(b));
+
+	// 2x*3*(1+3x) / 2
+	Expression c[] = { m, Expression("2", ExpressionType::Literal)};
+	Expression res = Expression("/", ExpressionType::Operator, Vector<Expression>(c));
+
+	String arr[] = {"hola mundo", "me llamo pedro", "abcd", "abba", "cadabra", "magia", "negra", "patata", "alvarez", "montecristo", "alvarez", "alvareza"};
+	Vector<String> v(arr);
+
+	print(v);
+	v.sort(Sort::greater<String>());
+	print(v);
+	v.sort(Sort::less<String>());
+	print(v);
 
 
 	return 0;

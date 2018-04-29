@@ -98,7 +98,17 @@ String operator+(const String& s, char c)
 
 String operator+(char c, const String& s)
 {
-	return s + c;
+	String result(s);
+	//Push arbitrary character
+	result.push('c');
+	for(size_t i = result.getLength(); i > 0; i--)
+	{
+		result[i] = result[i - 1];
+	}
+
+	result[0] = c;
+
+	return result;
 }
 
 String& String::operator+=(const String& str)
@@ -128,4 +138,77 @@ size_t String::strlen(const char* str)
 const char* String::getString() const
 {
 	return data;
+}
+
+bool String::operator<(const String &other) const
+{
+	size_t index = 0;
+	while(index < getLength() && index < other.getLength())
+	{
+		if(data[index] > other[index])
+		{
+			return false;
+		}
+		else if(data[index] < other[index])
+		{
+			return true;
+		}
+		index++;
+	}
+
+	//The shortest string is smaller
+	return getLength() < other.getLength();
+}
+
+bool String::operator==(const String &other) const
+{
+
+	if(getLength() != other.getLength())
+	{
+		return false;
+	}
+
+	for(size_t i = 0; i < getLength(); i++)
+	{
+		if(data[i] != other[i])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool String::operator<=(const String &other) const
+{
+	size_t index = 0;
+	while(index < getLength() && index < other.getLength())
+	{
+		if(data[index] > other[index])
+		{
+			return false;
+		}
+		else if(data[index] < other[index])
+		{
+			return true;
+		}
+		index++;
+	}
+
+	//The shortest string is smaller
+	return getLength() <= other.getLength();
+}
+
+bool String::operator>(const String &other) const
+{
+	return !(*this <= other);
+}
+
+bool String::operator>=(const String &other) const
+{
+	return !(*this < other);
+}
+bool String::operator!=(const String &other) const
+{
+	return !(*this == other);
 }

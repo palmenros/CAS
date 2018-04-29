@@ -40,7 +40,16 @@ public:
 	friend String operator+(const String& s, char c);
 	friend String operator+(char c, const String& s);
 
+	bool operator!=(const String& other) const;
+	bool operator==(const String& other) const;
+
+	bool operator<(const String& other) const;
+	bool operator<=(const String& other) const;
+	bool operator>(const String& other) const;
+	bool operator>=(const String& other) const;
+
 	const char* getString() const;
+
 private:
 
 	//Helper function
