@@ -9,13 +9,14 @@
 /*****************************************************************/
 
 #include "String.h"
+#include "Vector.h"
+#include "Map.h"
 
 //Export everything to C linkage. Keep C++ headers above the export in order to be able to benefit from C++ features
 extern "C" {
 
 #include "fxlib.h"
 #include "syscall.h"
-#include "string.h"
 
 //****************************************************************************
 //  AddIn_main (Sample program main function)
@@ -34,14 +35,34 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 
   Bdisp_AllClr_DDVRAM();
 
-  locate(1, 4);
-  Print((unsigned char *) "This application is");
-  locate(1, 5);
+//  String arr[] = {"hola mundo", "me llamo pedro", "abcd", "abba", "cadabra", "magia", "magiad", "aaa"};
+//  Vector<String> v(arr);
+//  v.sort();
+//
+//  for(int i = 0; i < v.getSize(); i++)
+//  {
+//  	locate(1, i + 1);
+//  	Print((const unsigned char*) v[i].getString());
+//  }
 
-  String a = "Que", b = "tal";
-  Print((const unsigned char *) ('d' + a + " bitches, " + b).getString());
+//	Vector<int> ciphers;
+//	int n = sizeof(size_t);
+//	while(n != 0)
+//	{
+//		ciphers.push(n % 10);
+//		n /= 10;
+//	}
+//
+//	locate(1, 1);
+//	for(int i = 0; i < ciphers.getSize(); i++)
+//	{
+//		Print((unsigned char*)String('0' + ciphers[i]).getString());
+//	}
+//
+//	Map<String, int> m;
+//	volatile int* i = m.get("Hola mundo");
 
-  while (1) {
+  while (true) {
 	GetKey(&key);
   }
 

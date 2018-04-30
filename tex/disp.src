@@ -1,0 +1,43 @@
+;;
+;;  setPixel() function.
+;;  Sets the color of a pixel on the screen.
+;;
+
+	.global _setPixel
+
+_setPixel:
+	mov.l #127,r1
+	cmp/hi r1,r4
+	bt end
+	mov.l #63,r1
+	cmp/hi r1,r5
+	bt end
+	mov r4,r0
+	shll2 r5
+	shll2 r5
+	mov #-3,r1
+	shld r1,r4
+	add r4,r7
+	add r5,r7
+	mov.b @r7,r1
+	mov #7,r2
+	and r0,r2
+	neg r2,r2
+	mov.l #128,r3
+	shld r2,r3
+	tst r6,r6
+	bt white
+black:
+	or r3,r1
+	rts
+	mov.b r1,@r7
+white:
+	not r3,r3
+	and r3,r1
+	rts
+	mov.b r1,@r7
+end:
+	rts
+	nop
+
+	.end

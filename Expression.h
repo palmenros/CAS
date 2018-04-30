@@ -12,7 +12,8 @@ namespace ExpressionType
 	enum e {
 		Literal,
 		Function,
-		Operator
+		Operator,
+		None
 	};
 };
 
@@ -31,7 +32,14 @@ private:
 	Vector<Expression> args;
 
 public:
+
+	Expression();
+
 	Expression(const String& str, ExpressionType::e type, const Vector<Expression>& args = Vector<Expression>());
 
 	String toString() const;
+
+	bool isSum() const;
+	bool isDivision() const;
+	bool isExponential() const;
 };
